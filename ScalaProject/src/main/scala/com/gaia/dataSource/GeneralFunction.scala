@@ -4,7 +4,7 @@ package com.gaia.dataSource
   * @author michael
   * @create 2020-04-18 10:36
   */
-class common {
+class GeneralFunction {
 
     def getSign(appSecret: String, api: String, appKey: String, pageIndex: String, pageSize: String, toAppKey: String, ver: String, para: String, appSecret_agin: String): String = {
 

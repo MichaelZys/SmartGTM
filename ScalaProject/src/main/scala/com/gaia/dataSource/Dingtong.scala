@@ -21,6 +21,9 @@ import org.apache.spark.SparkContext
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 
 
+import scala.collection.mutable.ListBuffer
+
+
 object Dingtong {
 
 
@@ -76,7 +79,10 @@ object Dingtong {
     val pageIndex = "1"
     val pageSize = "2"
     val para = """{"activityDate":"2020-04-15","warehouseCode":"403011"}"""
-    val sign = getSign(appSecret, api, appKey, pageIndex, pageSize, toAppKey, ver, para, appSecret)
+
+    val gf = new com.gaia.dataSource.GeneralFunction
+
+    val sign = gf.getSign(appSecret, api, appKey, pageIndex, pageSize, toAppKey, ver, para, appSecret)
     val md5Sign = hashMD5(sign)
     val postUrl = "http://122.144.129.75:9210/api/datax/in/queryPage?appKey=%s&toAppKey=%s&ver=%s&api=%s&pageIndex=%s&pageSize=%s&sign=%s".format(appKey, toAppKey, ver, api, pageIndex, pageSize, md5Sign)
 
@@ -99,6 +105,7 @@ object Dingtong {
     val colList = colStr.split(",")
 
 //    var sendList   = new util.ArrayList<String>();
+    val sendList = new ListBuffer[String]
 
 
 
@@ -114,13 +121,16 @@ object Dingtong {
         sigleMessage += ","
 //        println(sigleMessage)
       }
-      println(sigleMessage.dropRight(1))
+//      println(sigleMessage.dropRight(1))
+      sendList.add(sigleMessage.dropRight(1))
 
     }
 //
-//    for (i <- sendList){
-//      println(i)
-//    }
+    for (i <- sendList){
+      println(i)
+    }
+
+    println("结束List")
 //
 //
 //    val list: List[AnyRef] = data.iterator().toList
