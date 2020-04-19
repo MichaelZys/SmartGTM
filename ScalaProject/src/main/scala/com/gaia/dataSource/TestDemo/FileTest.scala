@@ -1,8 +1,8 @@
-package com.gaia.dataSource
+package com.gaia.dataSource.TestDemo
 
-import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.sql.{Row, SparkSession}
+import org.apache.spark.sql.Row
 import org.apache.spark.sql.types._
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * @author michael

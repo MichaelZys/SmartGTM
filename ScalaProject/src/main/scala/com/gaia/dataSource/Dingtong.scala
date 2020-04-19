@@ -2,8 +2,9 @@ package com.gaia.dataSource
 
 
 import org.apache.spark.SparkConf
+import org.apache.spark.sql.SaveMode
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
-import com.gaia.dataSource.{GeneralFunction, DTOrder, SparkFunction}
+//import com.gaia.dataSource.{GeneralFunction, DTOrder, SparkFunction}
 
 
 object Dingtong {
@@ -17,7 +18,7 @@ object Dingtong {
     val api = "kpi.delivery.result"
     val pageIndex = "1"
     val pageSize = "2"
-    val body = """{"activityDate":"2020-04-15","warehouseCode":"403011"}"""
+    val body = """{"activityDate":"2020-04-15"}"""
 
 
     //获得顶通列str
@@ -29,31 +30,29 @@ object Dingtong {
       ver, body)
     val resSeqRow = gf.getResSeqRow(res, colStr)
 
+    resSeqRow.foreach(println)
 
-    val sparkFT = new SparkFunction
-    val conf = new SparkConf()
-    conf.set("spark.master", "local[*]")
-    conf.set("spark.app.name", "dtOrder")
-    val spark = sparkFT.getSparkSession(conf)
-    val sc = sparkFT.getSparkContext(conf)
-    //      .setAppName("test").setMaster("local[*]")
-    //    conf.set("spark.sql.adaptive.enabled", "true")
-    //    conf.set("spark.sql.adaptive.shuffle.targetPostShuffleInputSize", "128M")
-    //    conf.set("spark.sql.adaptive.join.enabled", "true")
-    //    conf.set("spark.sql.autoBroadcastJoinThreshold", "20971520")
+
+    val spark = new SparkFunction().getSparkSession()
 
     //    val schemaString = "ttShipToCode,code,orderPlacedAt,ttShipToName,lon,warehouseCode,deliveredAt,divisionCode,shipToCity,shipToAddress1,shipToName,ttShipToAddress1,shipToState,totalCases,lat,shipTo"
     val fields = colStr.split(",")
       .map(fieldName => StructField(fieldName, StringType, nullable = true))
     val schema = StructType(fields)
-    val rdd = sc.parallelize(resSeqRow)
 
-    val df = sparkFT.getDataFrame(spark, rdd, schema)
-
-    df.write.mode("append").saveAsTable("ods_sftm_new.dtorder")
+    val rdd = spark.sparkContext.parallelize(resSeqRow)
 
 
 
+
+    val df = spark.createDataFrame(rdd, schema)
+
+    df.show()
+
+    df.write.mode(SaveMode.Overwrite).saveAsTable("ods_sftm_new.ods_dtorder_tmp")
+
+
+    spark.stop()
 
 
   }
