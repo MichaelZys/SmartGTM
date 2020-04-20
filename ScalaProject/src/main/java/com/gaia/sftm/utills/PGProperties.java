@@ -2,6 +2,7 @@ package com.gaia.sftm.utills;
 
 import java.util.Properties;
 
+
 public class PGProperties {
     private static Properties pro =null;
 

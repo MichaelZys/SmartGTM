@@ -1,6 +1,7 @@
 package com.gaia.dataSource.TestDemo
 
-import com.alibaba.fastjson.{JSON, JSONObject}
+import com.alibaba.fastjson.{JSON, JSONObject, JSONArray}
+
 
 /**
   * @author michael
@@ -15,9 +16,18 @@ object FastJsonTestDemo01 {
     //Json中包含数组, 字符串, 需要把字符串解析出来, 把数组解析出来.
 
     //
-    val str:String = "{\"code\":\"0\",\"msg\":\"Success\",\"notify\":true,\"data\":[],\"error\":false}"
+    val str:String = "{\"code\":\"0\",\"msg\":\"Success\",\"notify\":true,\"data\":[1,2,3],\"error\":false}"
     val json:JSONObject = JSON.parseObject(str)
     println(json.get("code"))
+    println(json.get("data"))
+
+    val jsonArray:JSONArray = json.getJSONArray("data")
+
+    println(jsonArray.size())
+
+//    jsonArray.forEach(println)
+
+
 
 
     //字符串转Json

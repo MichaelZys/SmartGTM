@@ -1,10 +1,9 @@
 package com.gaia.dataSource
 
 
-import org.apache.spark.SparkConf
+
 import org.apache.spark.sql.SaveMode
-import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
-//import com.gaia.dataSource.{GeneralFunction, DTOrder, SparkFunction}
+import org.apache.spark.sql.types.{StringType, StructField, StructType}
 
 
 object Dingtong {
@@ -38,19 +37,16 @@ object Dingtong {
     //    val schemaString = "ttShipToCode,code,orderPlacedAt,ttShipToName,lon,warehouseCode,deliveredAt,divisionCode,shipToCity,shipToAddress1,shipToName,ttShipToAddress1,shipToState,totalCases,lat,shipTo"
     val fields = colStr.split(",")
       .map(fieldName => StructField(fieldName, StringType, nullable = true))
+
     val schema = StructType(fields)
 
     val rdd = spark.sparkContext.parallelize(resSeqRow)
-
-
-
 
     val df = spark.createDataFrame(rdd, schema)
 
     df.show()
 
     df.write.mode(SaveMode.Overwrite).saveAsTable("ods_sftm_new.ods_dtorder_tmp")
-
 
     spark.stop()
 

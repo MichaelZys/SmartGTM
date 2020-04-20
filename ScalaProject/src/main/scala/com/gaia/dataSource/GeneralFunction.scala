@@ -37,8 +37,11 @@ class GeneralFunction {
     //通过参数获取数据sign, 用于加密获取MD5码
     val sign: String = getSign(appSecret, api, appKey, pageIndex, pageSize,
       toAppKey, ver, para)
+    println(sign)
     val md5Sign: String = hashMD5(sign)
+    println(md5Sign)
     val postUrl = getUrl(api, appKey, pageIndex, pageSize, toAppKey, ver, md5Sign)
+    println(postUrl)
 
     //获取Http实例
     val http = new HttpFunction

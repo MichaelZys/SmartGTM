@@ -64,7 +64,8 @@ public class HiveToPG {
         // 9.拜访数据
 //        String visitsql = "select *, from_unixtime(unix_timestamp(),'yyyy-MM-dd') as data_version from ods_sftm_new.ods_visit";
         String visitsql = "select *, date_format(visit_date,'yyyy-MM-dd') as data_version from ods_sftm_new.ods_visit where date_format(visit_date,'yyyy-MM-dd')=date_sub(current_date(),1)";
-//        String visitsql = "select *, from_unixtime(unix_timestamp(),'yyyy-MM-dd') as data_version from ods_sftm_new.ods_visit where date_format(call_date,'yyyy-MM-dd')='2020-04-15'";
+//        String visitsql = "select *, date_format(visit_date,'yyyy-MM-dd') as data_version from ods_sftm_new.ods_visit where date_format(visit_date,'yyyy-MM-dd')='2020-04-18'";
+//        String visitsql = "select *, from_unixtime(unix_timestamp(),'yyyy-MM-dd') as data_version from ods_sftm_new.ods_visit where date_format(call_date,'yyyy-MM-dd')='2020-04-18'";
         System.out.println(visitsql);
         appendData(spark,visitsql,url,visit,pro);
 

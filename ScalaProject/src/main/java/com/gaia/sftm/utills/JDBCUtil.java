@@ -2,6 +2,7 @@ package com.gaia.sftm.utills;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -48,6 +49,10 @@ public class JDBCUtil {
 
             //57
             url = properties.getProperty("url");
+            if (InetAddress.getLocalHost().getHostName().contains("gaialab")) {
+                url.replace("10.10.17.14","192.168.0.108");
+//                conf.set("hive.metastore.uris", "thrift://10.10.17.11:9083")
+            }
             user = properties.getProperty("user");
             password = properties.getProperty("password");
             driver = properties.getProperty("driver");
