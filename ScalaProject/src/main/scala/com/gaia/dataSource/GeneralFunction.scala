@@ -53,15 +53,15 @@ class GeneralFunction {
 
   def getResSeqRow(res: String, colStr: String): Seq[Row] = {
 
-    println(res)
+//    println(res)
 //    {"code":"0","msg":"Success","notify":true,
     val json: JSONObject = JSON.parseObject(res)
     val code = json.getString("code")
     val msg = json.getString("msg")
     val notify = json.getString("notify")
-    println(code)
-    println(msg)
-    println(notify)
+//    println(code)
+//    println(msg)
+//    println(notify)
     val data: JSONArray = json.getJSONArray("data")
 
 
@@ -78,10 +78,11 @@ class GeneralFunction {
         sigleMessage += data.getJSONObject(i).get(j)
         sigleMessage += ","
       }
-      sigleMessage = sigleMessage.dropRight(1)
+      sigleMessage = sigleMessage.dropRight(1).replace("|","")
       var x = sigleMessage.split(",")
       seq = seq :+ Row(x(0), x(1), x(2), x(3), x(4), x(5), x(6), x(7), x(8), x(9), x(10), x(11), x(12), x
-      (13), x(14), x(15))
+      (13), x(14), x(15), x(16), x(17), x(18), x(19), x(20), x(21), x(22),
+        data.getJSONObject(i).toString)
     }
 
     seq
