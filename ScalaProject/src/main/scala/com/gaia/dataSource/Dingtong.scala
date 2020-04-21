@@ -20,8 +20,8 @@ object Dingtong {
     val toAppKey = "B6CFE8F3"
     val ver = "1_0"
     val api = "kpi.delivery.result"
-    val pageSize = "100"
-    val body = """{"activityDate":"2020-04-15"}"""
+    val pageSize = "500"
+    val body = """{"activityDate":"2020-04-20"}"""
 
     var flag:Boolean = true
 
@@ -65,6 +65,9 @@ object Dingtong {
       //Seq(Row)
       var resSeqRow = gf.getResSeqRow(res, colStr)
 
+
+
+      spark.sparkContext.parallelize(Seq(data))
 
       var rdd = spark.sparkContext.parallelize(resSeqRow)
 

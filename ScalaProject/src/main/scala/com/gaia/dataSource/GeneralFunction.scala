@@ -65,6 +65,7 @@ class GeneralFunction {
     val data: JSONArray = json.getJSONArray("data")
 
 
+
     //获取列List
     val colList = colStr.split(",")
 

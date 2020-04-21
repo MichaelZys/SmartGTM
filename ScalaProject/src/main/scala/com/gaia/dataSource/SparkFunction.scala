@@ -38,6 +38,9 @@ class SparkFunction {
     conf.set("spark.sql.warehouse.dir", "/warehouse/tablespace/managed/hive")
     conf.set("spark.debug.maxToStringFields", "300")
     conf.set("spark.app.name","the lowest level spark")
+    conf.set("hive.execution.engine", "mr")
+
+    println(System.getProperty("os.name"))
 
     //如果运行在本地, 就是local[*]
     //
@@ -48,6 +51,7 @@ class SparkFunction {
       //      conf.set("spark.master","local[*]")
     }
 
+    println(InetAddress.getLocalHost.getHostName.contains("SMART"))
     //
     if (InetAddress.getLocalHost.getHostName.contains("SMART")) {
       conf.set("hive.metastore.uris", "thrift://10.10.17.11:9083")
