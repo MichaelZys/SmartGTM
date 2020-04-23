@@ -6,9 +6,6 @@ import org.apache.spark.sql.types.{StringType, StructField, StructType}
 import com.alibaba.fastjson.{JSON, JSONArray}
 
 
-import scala.util.parsing.json.JSONObject
-
-
 object Dingtong {
 
   def main(args: Array[String]): Unit = {
@@ -21,7 +18,7 @@ object Dingtong {
     val ver = "1_0"
     val api = "kpi.delivery.result"
     val pageSize = "500"
-    val body = """{"activityDate":"2020-04-20"}"""
+    val body = """{"activityDate":"2020-04-22"}"""
 
     var flag:Boolean = true
 
