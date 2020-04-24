@@ -18,7 +18,7 @@ object Dingtong {
     val ver = "1_0"
     val api = "kpi.delivery.result"
     val pageSize = "500"
-    val body = """{"activityDate":"2020-04-22"}"""
+    val body = """{"activityDate":"2020-04-23"}"""
 
     var flag:Boolean = true
 
