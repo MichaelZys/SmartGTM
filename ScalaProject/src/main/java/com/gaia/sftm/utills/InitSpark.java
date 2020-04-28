@@ -14,7 +14,7 @@ public class InitSpark {
                 .appName("SparkToPG")
 //                .master("local[*]")
                 .config("spark.sql.warehouse.dir", "/warehouse/tablespace/managed/hive")
-                .config("hive.metastore.uris", "thrift://10.10.17.11:9083")
+                .config("hive.metastore.uris", "thrift://192.168.0.103:9083")
                 .config("spark.debug.maxToStringFields", "300")
                 .config("hive.execution.engine", "mr")
                 .enableHiveSupport()

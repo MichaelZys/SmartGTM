@@ -28,7 +28,7 @@ object Dingtong {
     val dt = new DTOrder
     val colStr = dt.getDTOrderColStr()
 
-    val spark = new SparkFunction().getSparkSession()
+//    val spark = new SparkFunction().getSparkSession()
 
     val fields = (colStr + ",oriData").split(",")
       .map(fieldName => StructField(fieldName, StringType, nullable = true))
@@ -64,17 +64,17 @@ object Dingtong {
 
 
 
-      spark.sparkContext.parallelize(Seq(data))
+//      spark.sparkContext.parallelize(Seq(data))
+//
+//      var rdd = spark.sparkContext.parallelize(resSeqRow)
+//
+//      var df = spark.createDataFrame(rdd, schema)
 
-      var rdd = spark.sparkContext.parallelize(resSeqRow)
-
-      var df = spark.createDataFrame(rdd, schema)
-
-      df.write.mode(SaveMode.Append).saveAsTable("ods_sftm_new.ods_dtorder_tmp")
+//      df.write.mode(SaveMode.Append).saveAsTable("ods_sftm_new.ods_dtorder_tmp")
 
 
     }
-    spark.stop()
+//    spark.stop()
 
   }
 

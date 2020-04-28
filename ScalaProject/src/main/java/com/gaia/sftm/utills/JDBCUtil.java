@@ -48,10 +48,11 @@ public class JDBCUtil {
              */
 
             //57
-            url = properties.getProperty("url");
             if (InetAddress.getLocalHost().getHostName().contains("gaialab")) {
-                url.replace("10.10.17.14","192.168.0.108");
-//                conf.set("hive.metastore.uris", "thrift://10.10.17.11:9083")
+                url = properties.getProperty("url1");
+            }
+            else {
+                url = properties.getProperty("url");
             }
             user = properties.getProperty("user");
             password = properties.getProperty("password");
