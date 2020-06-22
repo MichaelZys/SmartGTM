@@ -97,7 +97,7 @@ object Uni_Store {
         |where t1.uuid = 1
       """.stripMargin)
 
-    df_uni_store.write.mode(SaveMode.Overwrite).saveAsTable("ods_sftm_new.ods_cust_store")
+    df_uni_store.repartition(40).write.mode(SaveMode.Overwrite).saveAsTable("ods_sftm_new.ods_cust_store")
 //  下面的repartition, 产生N个HDFS文件, 也可以按照列来产生...具体可以参考API文档.
 //    df_uni_store.repartition(1).write.mode(SaveMode.Overwrite).saveAsTable("ods_sftm_new.ods_cust_store")
     spark.stop()

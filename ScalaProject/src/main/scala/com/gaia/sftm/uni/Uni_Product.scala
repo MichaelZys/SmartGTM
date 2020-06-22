@@ -79,6 +79,55 @@ object Uni_Product {
     df_uni_product.write.mode(SaveMode.Overwrite).saveAsTable("ods_sftm_new.ods_product")
     //  下面的repartition, 产生N个HDFS文件, 也可以按照列来产生...具体可以参考API文档.
     //    df_uni_store.repartition(1).write.mode(SaveMode.Overwrite).saveAsTable("ods_sftm_new.ods_cust_store")
+
+
+    spark.sql(
+      """
+        |select
+        |    t1.prd_id,
+        |    t1.status,
+        |    t1.prd_waiqin365_id,
+        |    t1.prd_code,
+        |    t1.prd_short_code,
+        |    t1.prd_barcode,
+        |    t1.prd_name,
+        |    t1.class_name,
+        |    t1.prd_spec,
+        |    t1.prd_brand,
+        |    t1.prd_unit,
+        |    t1.prd_valid_period,
+        |    t1.prd_weight,
+        |    t1.prd_sequ,
+        |    t1.prd_remarks,
+        |    t1.create_time,
+        |    t1.with_tag_new,
+        |    t1.with_tag_hot,
+        |    t1.with_tag_gift,
+        |    t1.with_tag_sale,
+        |    t1.with_tag_ex1,
+        |    t1.prd_suggest_price,
+        |    t1.prd_cost_price,
+        |    t1.prd_price,
+        |    t1.prd_sale_status,
+        |    t1.prd_short_name,
+        |    t1.prd_teu_coefficient,
+        |    t1.prd_same_price_code,
+        |    t1.creator_id,
+        |    t1.create_name,
+        |    t1.modifyier_id,
+        |    t1.modifyier_name,
+        |    t1.modifier_time,
+        |    t1.call_date,
+        |    t1.bu,
+        |    t1.prd_exts,
+        |    t1.prd_units,
+        |    replace(replace(item,'"prd_ext_key": "系列", "prd_ext_value": "',''),'"','') as prd_type from
+        |(
+        |select *,replace(replace(exts_item,'{',''),'}','') as item
+        |from ods_sftm_new.ods_product lateral view explode(split(substring(prd_exts,2, length(prd_exts)-2),"},")) tmp as exts_item
+        |) as t1 where item like '%系列%' and bu = 'km'
+      """.stripMargin).write.mode(SaveMode.Overwrite).saveAsTable("dm_sftm.dm_km_product")
     spark.stop()
+
   }
 }

@@ -24,16 +24,16 @@ public class SparkToPG {
             PGUpdate.updateData(connection, "ods_sftm.matedataconf", "0");
 
 //            // 2. 对于拜访表, 删除今天新增的即可
-            PGDelete.deleteData(connection, "ods_sftm.ods_visit");
-            //1.清空PG表数据
-            PGTruncate.trunData(connection, "ods_sftm.ods_org_emp");
-            PGTruncate.trunData(connection, "ods_sftm.ods_org_dep");
-            PGTruncate.trunData(connection, "ods_sftm.dwd_base_info");
-            PGTruncate.trunData(connection, "ods_sftm.dwd_cust");
-            PGTruncate.trunData(connection, "ods_sftm.ods_cust_dealer");
+//            PGDelete.deleteData(connection, "ods_sftm.ods_visit");
+////            //1.清空PG表数据
+//            PGTruncate.trunData(connection, "ods_sftm.ods_org_emp");
+//            PGTruncate.trunData(connection, "ods_sftm.ods_org_dep");
+//            PGTruncate.trunData(connection, "ods_sftm.dwd_base_info");
+//            PGTruncate.trunData(connection, "ods_sftm.dwd_cust");
+//            PGTruncate.trunData(connection, "ods_sftm.ods_cust_dealer");
             PGTruncate.trunData(connection, "ods_sftm.ods_cust_store");
-            PGTruncate.trunData(connection, "ods_sftm.ods_cust_type");
-            PGTruncate.trunData(connection, "ods_sftm.ods_product");
+//            PGTruncate.trunData(connection, "ods_sftm.ods_cust_type");
+//            PGTruncate.trunData(connection, "ods_sftm.ods_product");
 
 
             if (connection != null) {
@@ -48,16 +48,6 @@ public class SparkToPG {
         //1.部门表  2.员工表  3.门店经销商融合表   4.部门、员工、门店、经销商融合表
         HiveToPG.ToPg();
 
-        try {
-            Connection connection = JDBCUtil.getConnection();
-            // 4. 把flag置为1, 方便其他人操作
-            PGUpdate.updateData(connection, "ods_sftm.matedataconf", "1");
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 }
